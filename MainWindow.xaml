@@ -1,0 +1,88 @@
+﻿<Window x:Class="TableEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="Table Editor" Height="450" Width="800">
+    <Grid Margin="10" Background="PowderBlue">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" Margin="10" Background="AliceBlue">
+            <TextBlock Text="Таблицы базы данных" FontWeight="Bold" FontSize="16" Margin="0,0,0,10"/>
+            <ListBox Name="TablesListBox" SelectionChanged="TablesListBox_SelectionChanged" />
+
+        </StackPanel>
+
+        <TabControl Grid.Column="1" Margin="10" Background="AliceBlue">
+            <TabItem Header="Создание таблицы">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Имя таблицы:" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBox Name="NewTableNameTextBox" Width="200" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Поля таблицы:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <DataGrid Name="NewFieldsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя поля" Binding="{Binding FieldName}" Width="*"/>
+                            <DataGridComboBoxColumn Header="Тип данных" Width="*" SelectedItemBinding="{Binding DataType}">
+                                <DataGridComboBoxColumn.ItemsSource>
+                                    <x:Array Type="{x:Type sys:String}">
+                                        <sys:String>Целочисленный</sys:String>
+                                        <sys:String>Вещественный</sys:String>
+                                        <sys:String>Текстовый</sys:String>
+                                        <sys:String>Дата/Время</sys:String>
+                                    </x:Array>
+                                </DataGridComboBoxColumn.ItemsSource>
+                            </DataGridComboBoxColumn>
+                            <DataGridCheckBoxColumn Header="Первичный ключ" Binding="{Binding IsPrimaryKey}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Name="AddFieldButton" Content="Добавить поле" Width="150" Margin="0,10,0,0" Background="Azure" Click="AddFieldButton_Click"/>
+                    <Button Name="CreateTableButton" Content="Создать таблицу" Width="150" Margin="0,10,0,0" Background="Azure" Click="CreateTableButton_Click"/>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Редактирование таблицы">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Выбранная таблица:" FontWeight="Bold" Margin="0,0,0,5"/>
+                    <TextBlock Name="SelectedTableNameTextBlock" FontSize="14" FontWeight="Bold" Margin="0,0,0,10"/>
+
+                    <TextBlock Text="Поля таблицы:" FontWeight="Bold" Margin="0,10,0,5"/>
+                    <DataGrid Name="EditFieldsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False" Margin="0,0,0,10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Имя поля" Binding="{Binding FieldName}" Width="*"/>
+                            <DataGridComboBoxColumn Header="Тип данных" Width="*" SelectedItemBinding="{Binding DataType}">
+                                <DataGridComboBoxColumn.ItemsSource>
+                                    <x:Array Type="{x:Type sys:String}">
+                                        <sys:String>Целочисленный</sys:String>
+                                        <sys:String>Вещественный</sys:String>
+                                        <sys:String>Текстовый</sys:String>
+                                        <sys:String>Дата/Время</sys:String>
+                                    </x:Array>
+                                </DataGridComboBoxColumn.ItemsSource>
+                            </DataGridComboBoxColumn>
+                            <DataGridCheckBoxColumn Header="Первичный ключ" Binding="{Binding IsPrimaryKey}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Button Name="AddFieldToEditButton" Content="Добавить поле" Width="150" Margin="0,10,0,0"  Background="Azure" Click="AddFieldToEditButton_Click"/>
+                    <Button Name="UpdateTableButton" Content="Обновить таблицу" Width="150" Margin="0,10,0,0" Background="Azure" Click="UpdateTableButton_Click"/>
+                </StackPanel>
+            </TabItem>
+
+            <TabItem Header="Удаление таблицы">
+                <StackPanel Margin="10">
+                    <TextBlock Text="Удаление выбранной таблицы:" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                        <Button Name="DeleteTableButton" Content="Удалить таблицу" Background="Azure" Width="150" Margin="0,0,10,0" Click="DeleteTableButton_Click"/>
+                    </StackPanel>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
+
+
+
